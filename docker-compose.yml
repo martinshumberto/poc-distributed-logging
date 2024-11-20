@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: otel-collector
+    ports:
+      - "4317:4317"  # OTLP gRPC
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+      - ./gcp-credentials.json:/etc/gcp-credentials.json
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/etc/gcp-credentials.json
+    command:
+      - --config=/etc/otel-collector-config.yaml
+    restart: unless-stopped

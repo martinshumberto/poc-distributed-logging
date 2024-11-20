@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package handlers;
+
+option go_package = "pkg/logger/grpc;grpc";
+
+service SimulatedService {
+  rpc SayHello (HelloRequest) returns (HelloResponse);
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string message = 1;
+}
